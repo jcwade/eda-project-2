@@ -56,3 +56,24 @@ plot.3 <- function() {
         print(g)
         data
 }
+
+# 4.  Across the United States, how have emissions from coal combustion-related
+# sources changed from 1999–2008?
+plot.4 <- function() {
+        sccs <- scc$SCC[grepl("^Fuel Comb - .* - Coal$", scc$EI.Sector)]
+        data <- nei %>%
+                filter(SCC %in% sccs) %>% # FIXME: use a join?
+                group_by(year) %>%
+                summarize(total=sum(Emissions))
+
+        g <- qplot(year, total, data = d, geom=c("point", "smooth"), method="lm")
+        print(g)
+
+        data
+
+
+}
+
+plot.5 <- function() {
+
+}
